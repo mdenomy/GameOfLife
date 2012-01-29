@@ -1,3 +1,3 @@
-This is a timeboxed (3-hour) implementation of Conway's Game of Life.
+Implementation of Conway's Game of Life in Ruby.
 
-The purpose of this exercise is to get more familiar with Ruby's OO capabilities.
+The purpose of this exercise is to get more familiar with Ruby's object-oriented capabilities.
