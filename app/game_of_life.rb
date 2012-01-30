@@ -12,4 +12,18 @@ class GameOfLife
         end
     end
   end
+  
+  def next_generation
+    @cells.each do |row| 
+      row.each do |col|
+        col.determine_next_state
+      end
+    end
+    
+    @cells.each do |row|
+      row.each do |col|
+        col.update_to_next_state
+      end
+    end
+  end
 end
