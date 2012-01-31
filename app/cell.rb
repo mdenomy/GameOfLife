@@ -1,4 +1,5 @@
 class Cell
+  @next_state
   @state
   attr_accessor :neighbors
 
@@ -15,21 +16,24 @@ class Cell
     return !alive?
   end
 
-  def update
+  def determine_next_state
     count = 0
     neighbors.each {|n| count += 1 if n.alive?}
     apply_rules(count)
   end
 
+  def update_to_next_state
+    @state = @next_state
+  end
   private
 
   def apply_rules(count)
     if count == 3
-      @state = :alive
+      @next_state = :alive
     elsif count == 2 && @state == :alive
-      @state = :alive
+      @next_state = :alive
     else
-      @state = :dead
+      @next_state = :dead
     end
   end
 end

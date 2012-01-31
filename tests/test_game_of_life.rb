@@ -103,5 +103,16 @@ class GameOfListTest < Test::Unit::TestCase
         assert test_cell.neighbors.include?(cell)
     end
   end
+   
+  def test_game_sets_up_lower_right_neighbors
+    game = GameOfLife.new(3,3)
+    expected = [ game.cells[1][1], game.cells[1][2],
+                 game.cells[2][1]                   ]
+    test_cell = game.cells[2][2]
+    assert_equal expected.count, test_cell.neighbors.count
+    expected.each do |cell|
+        assert test_cell.neighbors.include?(cell)
+    end
+  end
 
 end

@@ -36,46 +36,51 @@ class CellRulesTest < Test::Unit::TestCase
     dead.times {neighbors.push(Cell.new(:dead))}
     return neighbors
   end
+  
+  def trigger_generation(cell)
+    cell.determine_next_state
+    cell.update_to_next_state
+  end
 
   def test_live_cell_with_no_live_neighbors_dies
     cell = Cell.new(:alive)
     cell.neighbors = generate_neighborhood(0,8)
-    cell.update
+    trigger_generation(cell)
     assert_true cell.dead?
   end
 
   def test_live_cell_with_two_live_neighbors_lives
     cell = Cell.new(:alive)
     cell.neighbors = generate_neighborhood(2,6)
-    cell.update
+    trigger_generation(cell)
     assert_true cell.alive?
   end
 
   def test_live_cell_with_three_live_neighbors_lives
     cell = Cell.new(:alive)
     cell.neighbors = generate_neighborhood(3,5)
-    cell.update
+    trigger_generation(cell)
     assert_true cell.alive?
   end
 
   def test_live_cell_with_four_live_neighbors_dies
     cell = Cell.new(:alive)
     cell.neighbors = generate_neighborhood(4,4)
-    cell.update
+    trigger_generation(cell)
     assert_true cell.dead?
   end
 
   def test_dead_cell_with_three_live_neighbors_lives
     cell = Cell.new(:dead)
     cell.neighbors = generate_neighborhood(3,5)
-    cell.update
+    trigger_generation(cell)
     assert_true cell.alive?
   end
 
   def test_dead_cell_with_two_live_neighbors_stay_dead
     cell = Cell.new(:dead)
     cell.neighbors = generate_neighborhood(2,6)
-    cell.update
+    trigger_generation(cell)
     assert_true cell.dead?
   end
 end
