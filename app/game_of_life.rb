@@ -11,8 +11,9 @@ class GameOfLife
             end
         end
     end
+    link_neighbors(rows,columns)
   end
-  
+
   def next_generation
     @cells.each do |row| 
       row.each do |col|
@@ -26,4 +27,28 @@ class GameOfLife
       end
     end
   end
+
+  private
+
+  def link_neighbors(rows, columns)
+    for row in 0...rows
+      for col in 0...columns
+        left = col - 1
+        right = col + 1
+        above = row - 1
+        below = row + 1
+        neighbors = @cells[row][col].neighbors
+        neighbors.push(@cells[above][left]) if above >= 0  && left >= 0
+        neighbors.push(@cells[above][col]) if above >= 0
+        neighbors.push(@cells[above][right]) if above >= 0  && right < columns
+        neighbors.push(@cells[row][left]) if left >= 0
+        neighbors.push(@cells[row][right]) if right < columns
+        neighbors.push(@cells[below][left]) if below < rows  && left >= 0
+        neighbors.push(@cells[below][col]) if below < rows
+        neighbors.push(@cells[below][right]) if below < rows  && right < columns
+      end
+    end
+
+  end
+
 end

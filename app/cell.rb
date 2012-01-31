@@ -4,6 +4,7 @@ class Cell
 
   def initialize( state = :dead )
     @state = state
+    @neighbors = []
   end
 
   def alive?

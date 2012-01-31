@@ -80,5 +80,28 @@ class GameOfListTest < Test::Unit::TestCase
     game.next_generation
     assert_equal "determine_next_state;update_to_next_state;", mockCell.calls
   end
-  
+
+  def test_game_sets_up_center_neighbors
+    game = GameOfLife.new(3,3)
+    expected = [ game.cells[0][0], game.cells[0][1], game.cells[0][2],
+                 game.cells[1][0],                   game.cells[1][2],
+                 game.cells[2][0], game.cells[2][1], game.cells[2][2] ]
+    center = game.cells[1][1]
+    assert_equal expected.count, center.neighbors.count
+    expected.each do |cell|
+        assert center.neighbors.include?(cell)
+    end
+  end
+
+  def test_game_sets_up_upper_left_neighbors
+    game = GameOfLife.new(3,3)
+    expected = [                   game.cells[0][1],
+                 game.cells[1][0], game.cells[1][1] ]
+    test_cell = game.cells[0][0]
+    assert_equal expected.count, test_cell.neighbors.count
+    expected.each do |cell|
+        assert test_cell.neighbors.include?(cell)
+    end
+  end
+
 end
